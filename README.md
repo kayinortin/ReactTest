@@ -1,96 +1,66 @@
-# React test
+# 響應式數據表格組件 (DataTable)
 
-Below is the questions and the related data
+## 專案概述
 
-you are free to create any other files,
+使用 React 和 Material-UI 開發。它能夠在桌面和移動設備上提供完整的用戶體驗，具有靈活的排序、分頁和樣式定製功能。
 
-**just make sure your final answers all in `App.jsx`**
+## 主要特性
 
-### submit your answer
-Create a git repo for `althea834`, `BillyPJChen` and add them into your private repo.
+1. 響應式設計
+   - 在桌面設備上顯示為傳統表格
+   - 在移動設備上轉換為卡片式佈局
 
+2. 靈活的排序功能
+   - 支援單列排序
+   - 可自定義初始排序列和方向
 
-## Run the project
+3. 分頁功能
+   - 可配置每頁顯示的行數
+   - 支援頁面導航
 
-```
-npm install
-npm run start
-```
+4. 自定義樣式
+   - 支援為每行設置自定義樣式
+   - 保留預設的灰白相間背景色
 
----
+5. 互動反饋
+   - 行懸停效果
+   - 點擊反饋（尤其在移動版中）
 
-## Data
+6. 高度可定製
+   - 可自定義列的渲染方式
+   - 支援行點擊事件處理
 
-```js
-const factories = [
-  { name: 'BR1', employees: ['John', 'Alice', 'Bob', 'Jessie', 'Karen'] },
-  { name: 'BR2', employees: ['Jessie', 'Karen', 'John'] },
-  { name: 'BR3', employees: ['Miles', 'Eric', 'Henry', 'Bob'] },
-  { name: 'BR4', employees: [] },
-]
+## 技術
 
-const employeeType = [
-  { id: 1, name: 'FullTime', work_begin: '09:00:00', work_end: '17:00:00' },
-  { id: 2, name: 'MidTime', work_begin: '12:00:00', work_end: '21:00:00' },
-  { id: 3, name: 'HalfTime', work_begin: '20:00:00', work_end: '00:00:00' },
-]
+- React
+- Material-UI
+- Styled-components（用於樣式定製）
 
-const employees = [
-  { id: 1, name: 'Alice', type: 2 },
-  { id: 2, name: 'Bob', type: 3 },
-  { id: 3, name: 'John', type: 2 },
-  { id: 4, name: 'Karen', type: 1 },
-  { id: 5, name: 'Miles', type: 3 },
-  { id: 6, name: 'Henry', type: 1 },
-]
+## 使用示例
 
-const tasks = [
-  { id: 1, title: 'task01', duration: 60 }, // min
-  { id: 2, title: 'task02', duration: 120 },
-  { id: 3, title: 'task03', duration: 180 },
-  { id: 4, title: 'task04', duration: 360 },
-  { id: 5, title: 'task05', duration: 30 },
-  { id: 6, title: 'task06', duration: 220 },
-  { id: 7, title: 'task07', duration: 640 },
-  { id: 8, title: 'task08', duration: 250 },
-  { id: 9, title: 'task09', duration: 119 },
-  { id: 10, title: 'task10', duration: 560 },
-  { id: 11, title: 'task11', duration: 340 },
-  { id: 12, title: 'task12', duration: 45 },
-  { id: 13, title: 'task13', duration: 86 },
-  { id: 14, title: 'task14', duration: 480 },
-  { id: 15, title: 'task15', duration: 900 },
-]
-```
+```jsx
+import DataTable from './components/DataTable';
 
----
+const columns = [
+  { id: 'name', label: '姓名', render: row => row.name, getValue: row => row.name },
+  { id: 'age', label: '年齡', render: row => row.age, getValue: row => row.age },
+  // ... 其他列定義
+];
 
-## Questions
+const data = [
+  { id: 1, name: 'Alice', age: 30 },
+  { id: 2, name: 'Henry', age: 25 },
+  // ... 其他數據
+];
 
-1. Order employees list (in `factories`) by alphabetical order
-
-2. Make a function that take as parameters `dayTime` and return `number of employee working`
-
-3. Use `Material UI` to build a page with a table `Employee`,
-
-   all columns can be sorted
-
-   below the color palette
-
-4. Add pagination to the top table,
-
-   use `Material UI` to build another table `Task`,
-
-   several rows will be selected only if the assign is selected in the `Employee` table,
-
-```
-demo video: demo.mov
-
-Table component(React): https://mui.com/material-ui/react-table/
-
-color palette:
-  - table body: #fff
-  - items:  #FAFAFA / #fff
-  - hover: #EEEEEE
-  - selected: #EFF5FF
-```
+const MyComponent = () => (
+  <DataTable
+    columns={columns}
+    data={data}
+    enableSort={true}
+    enablePagination={true}
+    initialSortColumn="name"
+    getRowStyle={row => ({ backgroundColor: row.age > 30 ? '#f0f0f0' : 'inherit' })}
+    onRowClick={row => console.log('點擊:', row)}
+  />
+);
